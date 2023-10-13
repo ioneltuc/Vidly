@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vidly", "Vidly\Vidly.csproj", "{491577FA-8ABD-4593-BC54-6F6548881190}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{491577FA-8ABD-4593-BC54-6F6548881190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{491577FA-8ABD-4593-BC54-6F6548881190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{491577FA-8ABD-4593-BC54-6F6548881190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{491577FA-8ABD-4593-BC54-6F6548881190}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

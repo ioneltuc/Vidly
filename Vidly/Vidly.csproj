@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>aspnet-Vidly-5C00B059-50D4-4593-9748-FBEE6CCECCDA</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" NoWarn="NU1605"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.9" NoWarn="NU1605"/>
+        <PackageReference Include="Microsoft.Identity.Web" Version="1.16.0"/>
+        <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.16.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ViewModels\" />
+    </ItemGroup>
+
+</Project>
