@@ -1,0 +1,21 @@
+@model IEnumerable<Customer>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Customers</h2>
+<table>
+    <tr>
+        <th>Customer</th>
+        <th>Membership Type</th>
+    </tr>
+    @foreach (var customer in Model)
+    {
+        <tr>
+            <td>@customer.Name</td>
+            <td>@customer.MembershipType.Name</td>
+        </tr>
+    }
+</table>

@@ -5,20 +5,8 @@ namespace Vidly.Controllers;
 
 public class MoviesController : Controller
 {
-    // GET: Movies/Random
-    public IActionResult Random()
+    public IActionResult Index()
     {
-        var movie = new Movie()
-        {
-            Name = "Fast and Furious"
-        };
-        
-        return View(movie);
-    }
-
-    [Route("movies/released/{year}/{month}")]
-    public IActionResult ByReleaseYear(int year, int month)
-    {
-        return Content($"{year} {month}");
+        return View();
     }
 }
