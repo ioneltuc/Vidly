@@ -31,6 +31,10 @@ public class CustomersController : Controller
 
     public IActionResult Details(int id)
     {
-        return View();
+        var customer = _context.Customers
+            .Include(c => c.MembershipType)
+            .SingleOrDefault(c => c.Id == id);
+        
+        return View(customer);
     }
 }

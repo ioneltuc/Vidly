@@ -4,3 +4,10 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
+
+<h2>@Model.Name</h2>
+<h3>Membership Type: @Model.MembershipType.Name</h3>
+@if (Model.Birthday.HasValue)
+{
+    <h3>Birthdate: @Model.Birthday.Value.ToShortDateString()</h3>
+}
