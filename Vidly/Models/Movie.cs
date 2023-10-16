@@ -12,7 +12,10 @@ public class Movie
     
     [Required]
     public MovieGenre Genre { get; set; }
+    
     public DateTime ReleasedDate { get; set; }
+    
     public DateTime DateAdded { get; set; }
+    
     public int NumberInStock { get; set; }
 }
