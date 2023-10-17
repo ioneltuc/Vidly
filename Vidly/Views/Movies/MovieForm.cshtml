@@ -5,8 +5,6 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
-
 @using (Html.BeginForm("Save", "Movies"))
 {
     <div class="form-group">
@@ -15,8 +13,16 @@
             new { @class = "form-control" })
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Genre)
+        @Html.DropDownListFor(m => m.Movie.Genre,
+            Html.GetEnumSelectList<MovieGenre>(),
+            "Select movie genre",
+            new { @class = "form-control" })
+    </div>
+    <div class="form-group">
         @Html.LabelFor(m => m.Movie.ReleasedDate)
         @Html.TextBoxFor(m => m.Movie.ReleasedDate,
+            "{0:d MMM yyyy}",
             new { @class = "form-control" })
     </div>
     <div class="form-group">
@@ -24,7 +30,7 @@
         @Html.TextBoxFor(m => m.Movie.NumberInStock,
             new { @class = "form-control" })
     </div>
-    
+
     @Html.HiddenFor(m => m.Movie.Id)
     <button type="submit" class="btn btn-primary">Save</button>
 }
