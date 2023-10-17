@@ -13,7 +13,7 @@ public class Customer
     [Min18YearsIfMember]
     public DateTime? Birthday { get; set; }
     
-    public MembershipType MembershipType { get; set; }
+    public MembershipType? MembershipType { get; set; }
     
     [Display(Name = "Membership type")]
     public byte MembershipTypeId { get; set; }

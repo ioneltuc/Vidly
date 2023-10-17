@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Mvc;
 using Vidly.Data;
 using Vidly.Models;
@@ -15,8 +16,19 @@ public class MoviesController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Save(Movie movie)
     {
+        if (!ModelState.IsValid)
+        {
+            var viewModel = new MovieFormViewModel()
+            {
+                Movie = movie,
+            };
+
+            return View("MovieForm", viewModel);
+        }
+        
         if (movie.Id == 0)
         {
             movie.DateAdded = DateTime.Now;
@@ -38,7 +50,10 @@ public class MoviesController : Controller
 
     public IActionResult New()
     {
-        var viewModel = new MovieFormViewModel();
+        var viewModel = new MovieFormViewModel()
+        {
+            Movie = new Movie()
+        };
         
         return View("MovieForm", viewModel);
     }

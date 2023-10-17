@@ -2,7 +2,7 @@ namespace Vidly.Models;
 
 public enum MovieGenre
 {
-    Comedy,
+    Comedy = 1,
     Action,
     Horror
 }

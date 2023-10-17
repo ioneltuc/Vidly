@@ -21,6 +21,7 @@ public class CustomersController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Save(Customer customer)
     {
         if (!ModelState.IsValid)
@@ -30,7 +31,7 @@ public class CustomersController : Controller
                 Customer = customer,
                 MembershipTypes = _context.MembershipType.ToList()
             };
-
+        
             return View("CustomerForm", viewModel);
         }
         
@@ -55,6 +56,7 @@ public class CustomersController : Controller
     {
         var viewModel = new CustomerFormViewModel()
         {
+            Customer = new Customer(),
             MembershipTypes = _context.MembershipType.ToList()
         };
 
