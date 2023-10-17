@@ -10,6 +10,7 @@ public class Customer
     [StringLength(255)]
     public string Name { get; set; }
     
+    [Min18YearsIfMember]
     public DateTime? Birthday { get; set; }
     
     public MembershipType MembershipType { get; set; }
