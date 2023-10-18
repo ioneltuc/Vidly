@@ -15,7 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 builder.Services.AddDbContext<VidlyContext>(options =>
-    options.UseSqlServer("Server=localhost;Database=Vidly;Trusted_Connection=True;TrustServerCertificate=true;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
