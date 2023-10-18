@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -15,6 +16,7 @@ builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 builder.Services.AddDbContext<VidlyContext>(options =>
     options.UseSqlServer("Server=localhost;Database=Vidly;Trusted_Connection=True;TrustServerCertificate=true;"));
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Mvc;
 using Vidly.Data;
 using Vidly.Models;
@@ -9,7 +8,7 @@ namespace Vidly.Controllers;
 public class MoviesController : Controller
 {
     private readonly VidlyContext _context;
-    
+
     public MoviesController(VidlyContext context)
     {
         _context = context;
@@ -28,7 +27,7 @@ public class MoviesController : Controller
 
             return View("MovieForm", viewModel);
         }
-        
+
         if (movie.Id == 0)
         {
             movie.DateAdded = DateTime.Now;
@@ -54,10 +53,10 @@ public class MoviesController : Controller
         {
             Movie = new Movie()
         };
-        
+
         return View("MovieForm", viewModel);
     }
-    
+
     public IActionResult Edit(int id)
     {
         var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
@@ -72,18 +71,18 @@ public class MoviesController : Controller
 
         return View("MovieForm", viewModel);
     }
-    
+
     public IActionResult Index()
     {
         var movies = _context.Movies.ToList();
-        
+
         return View(movies);
     }
 
     public IActionResult Details(int id)
     {
         var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
-        
+
         return View(movie);
     }
 }
