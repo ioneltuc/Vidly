@@ -13,6 +13,8 @@ public class MappingProfile : Profile
             c => c.Id,
             opt => opt.Ignore());
 
+        CreateMap<MembershipType, MembershipTypeDto>();
+        
         CreateMap<Movie, MovieDto>();
         CreateMap<MovieDto, Movie>().ForMember(
             m => m.Id,

@@ -13,4 +13,6 @@ public class CustomerDto
     public DateTime? Birthday { get; set; }
     
     public byte MembershipTypeId { get; set; }
+    
+    public MembershipTypeDto MembershipType { get; set; }
 }
