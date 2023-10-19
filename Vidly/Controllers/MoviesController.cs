@@ -74,9 +74,7 @@ public class MoviesController : Controller
 
     public IActionResult Index()
     {
-        var movies = _context.Movies.ToList();
-
-        return View(movies);
+        return View();
     }
 
     public IActionResult Details(int id)
