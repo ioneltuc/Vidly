@@ -34,3 +34,6 @@ Desktop.ini
 .DS_Store
 
 /.idea
+
+#JS
+node_modules/

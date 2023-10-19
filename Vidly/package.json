@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bootbox": "^6.0.0",
+    "datatables.net-dt": "^1.13.6"
+  }
+}
