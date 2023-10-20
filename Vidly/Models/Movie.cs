@@ -23,4 +23,6 @@ public class Movie
     [Range(1, 20)]
     [Display(Name = "Stock number")]
     public int NumberInStock { get; set; }
+    
+    public byte NumberAvailable { get; set; }
 }
