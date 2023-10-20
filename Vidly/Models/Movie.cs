@@ -24,5 +24,5 @@ public class Movie
     [Display(Name = "Stock number")]
     public int NumberInStock { get; set; }
     
-    public byte NumberAvailable { get; set; }
+    public int NumberAvailable { get; set; }
 }
