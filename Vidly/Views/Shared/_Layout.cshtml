@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Vidly</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/typeahead.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" />
+    <link rel="stylesheet" href="~/css/typeahead.css"/>
+    <link rel="stylesheet" href="~/vendor/datatables.net-dt/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="~/vendor/toastr/build/toastr.min.css"/>
     
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/Vidly.styles.css" asp-append-version="true"/>
@@ -29,11 +29,16 @@
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/vendor/bootbox/dist/bootbox.min.js"></script>
+<script src="~/vendor/toastr/build/toastr.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/bloodhound.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.js"></script>
+
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
