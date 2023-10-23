@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Vidly.Models;
+using System.Text.Json.Serialization;
 
 namespace Vidly.Dtos;
 
@@ -12,6 +12,7 @@ public class MovieDto
     public string Name { get; set; }
     
     [Required]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public MovieGenreDto Genre { get; set; }
     
     [Required]
