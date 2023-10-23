@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "bootbox": "^6.0.0",
-    "datatables.net-dt": "^1.13.6",
-    "toastr": "^2.1.4",
-    "typeahead": "^0.2.2"
-  }
-}

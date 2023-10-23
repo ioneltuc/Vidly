@@ -1,32 +1,27 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-using Vidly.Data;
+using Vidly.Infrastructure;
+using Vidly.Services;
+using Vidly.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
-//try to add authorization
+
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"));
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
-builder.Services.AddDbContext<VidlyContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddDIServices(builder.Configuration);
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -40,12 +35,6 @@ app.UseStaticFiles();
 //todo try to add Identity library for authorization and authentication
 //todo remove node modules
 //todo 2. ideally use minify in production mode
-// to
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "node_modules")),
-    RequestPath = new PathString("/vendor")
-});
 
 app.UseRouting();
 

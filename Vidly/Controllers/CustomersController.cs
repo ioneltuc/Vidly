@@ -1,55 +1,39 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Vidly.Data;
-using Vidly.Models;
+using Vidly.Services.Dtos;
+using Vidly.Services.Interfaces;
 using Vidly.ViewModels;
 
 namespace Vidly.Controllers;
 
 public class CustomersController : Controller
 {
-    private readonly VidlyContext _context;
+    private readonly ICustomerService _customerService;
 
-    public CustomersController(VidlyContext context)
+    public CustomersController(ICustomerService customerService)
     {
-        _context = context;
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        _context.Dispose();
+        _customerService = customerService;
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Save(Customer customer)
+    public async Task<IActionResult> Save(CustomerDto customer)
     {
         if (!ModelState.IsValid)
         {
             var viewModel = new CustomerFormViewModel()
             {
                 Customer = customer,
-                MembershipTypes = _context.MembershipType.ToList()
+                // MembershipTypes = _context.MembershipType.ToList()
             };
         
             return View("CustomerForm", viewModel);
         }
         
         if (customer.Id == 0)
-        {
-            _context.Customers.Add(customer);
-        }
+            await _customerService.CreateCustomer(customer);
         else
-        {
-            //todo Automapper
-            var customerToEdit = _context.Customers.Single(c => c.Id == customer.Id);
-            customerToEdit.Name = customer.Name;
-            customerToEdit.Birthday = customer.Birthday;
-            customerToEdit.MembershipTypeId = customer.MembershipTypeId;
-        }
-
-        _context.SaveChanges();
-
+            await _customerService.UpdateCustomer(customer);
+        
         return RedirectToAction("Index", "Customers");
     }
 
@@ -57,23 +41,23 @@ public class CustomersController : Controller
     {
         var viewModel = new CustomerFormViewModel()
         {
-            Customer = new Customer(),
-            MembershipTypes = _context.MembershipType.ToList()
+            Customer = new CustomerDto(),
+            // MembershipTypes = _context.MembershipType.ToList()
         };
 
         return View("CustomerForm", viewModel);
     }
 
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+        var customer = await _customerService.GetCustomerById(id);
 
         if (customer == null)
             return NotFound();
 
         var viewModel = new CustomerFormViewModel()
         {
-            MembershipTypes = _context.MembershipType.ToList(),
+            // MembershipTypes = _context.MembershipType.ToList(),
             Customer = customer
         };
 
@@ -85,12 +69,10 @@ public class CustomersController : Controller
         return View();
     }
 
-    public IActionResult Details(int id)
+    public async Task<IActionResult> Details(int id)
     {
         //todo ASYNC/AWAIT
-        var customer = _context.Customers
-            .Include(c => c.MembershipType)
-            .FirstOrDefault(c => c.Id == id);
+        var customer = await _customerService.GetCustomerById(id);
         
         return View(customer);
     }

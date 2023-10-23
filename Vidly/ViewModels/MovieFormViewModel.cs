@@ -1,8 +1,8 @@
-using Vidly.Models;
+using Vidly.Services.Dtos;
 
 namespace Vidly.ViewModels;
 
 public class MovieFormViewModel
 {
-    public Movie Movie { get; set; }
+    public MovieDto Movie { get; set; }
 }

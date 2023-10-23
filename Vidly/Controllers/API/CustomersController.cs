@@ -1,16 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Vidly.Data;
-using Vidly.Dtos;
-using Vidly.Models;
+using Vidly.Services.Dtos;
+using Vidly.Services.Interfaces;
 
 namespace Vidly.Controllers.API
 {
@@ -18,86 +8,72 @@ namespace Vidly.Controllers.API
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private VidlyContext _context;
-        private readonly IMapper _mapper;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(VidlyContext context, IMapper mapper)
+        public CustomersController(ICustomerService customerService)
         {
-            _context = context;
-            _mapper = mapper;
+            _customerService = customerService;
         }
 
         [HttpGet]
-        public IResult GetCustomers(string query = null)
+        public async Task<IActionResult> GetCustomers(string query = null)
         {
-            var customersQuery = _context.Customers.AsQueryable();
+            var customers = await _customerService.GetAllCustomers();
 
-            if (!String.IsNullOrWhiteSpace(query))
-                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
-                
-            var customersDtos = customersQuery
-                .Include(c => c.MembershipType)
-                .ToList()
-                .Select(_mapper.Map<Customer, CustomerDto>);
-            
-            return Results.Ok(customersDtos);
+            if (customers == null)
+                return NotFound();
+
+            return Ok(customers);
         }
 
         [HttpGet("{id}")]
-        public IResult GetCustomer(int id)
+        public async Task<IActionResult> GetCustomerById(int customerId)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _customerService.GetCustomerById(customerId);
 
             if (customer == null)
-                return Results.NotFound();
+                return BadRequest();
 
-            return Results.Ok(_mapper.Map<Customer, CustomerDto>(customer));
+            return Ok(customer);
         }
 
         [HttpPost]
-        public IResult CreateCustomer(CustomerDto customerDto)
+        public async Task<IActionResult> CreateCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
-                return Results.BadRequest();
+                return BadRequest();
 
-            var customer = _mapper.Map<CustomerDto, Customer>(customerDto);
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            var customer = await _customerService.CreateCustomer(customerDto);
 
-            customerDto.Id = customer.Id;
-            var location = $"{Request.Scheme}://{Request.Host}{Request.Path}/{customer.Id}";
-            return Results.Created(new Uri(location), customerDto);
+            if (customer)
+                return Ok(customer);
+
+            return BadRequest();
         }
 
-        [HttpPut("{id}")]
-        public IResult UpdateCustomer(int id, CustomerDto customerDto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
-                return Results.BadRequest();
+                return BadRequest();
 
-            var customerToEdit = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var isCustomerUpdated = await _customerService.UpdateCustomer(customerDto);
 
-            if (customerToEdit == null)
-                return Results.NotFound();
+            if (isCustomerUpdated)
+                return Ok(isCustomerUpdated);
 
-            _mapper.Map(customerDto, customerToEdit);
-            _context.SaveChanges();
-
-            return Results.Ok();
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
-        public IResult DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer(int customerId)
         {
-            var customerToDelete = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var isCustomerDeleted = await _customerService.DeleteCustomer(customerId);
 
-            if (customerToDelete == null)
-                return Results.NotFound();
+            if (isCustomerDeleted)
+                return Ok(isCustomerDeleted);
 
-            _context.Customers.Remove(customerToDelete);
-            _context.SaveChanges();
-
-            return Results.Ok();
+            return BadRequest();
         }
     }
 }

@@ -1,9 +1,9 @@
-using Vidly.Models;
+using Vidly.Services.Dtos;
 
 namespace Vidly.ViewModels;
 
 public class CustomerFormViewModel
 {
-    public IEnumerable<MembershipType> MembershipTypes { get; set; }
-    public Customer Customer { get; set; }
+    public IEnumerable<MembershipTypeDto> MembershipTypes { get; set; }
+    public CustomerDto Customer { get; set; }
 }
