@@ -41,6 +41,7 @@ public class CustomersController : Controller
         }
         else
         {
+            //todo Automapper
             var customerToEdit = _context.Customers.Single(c => c.Id == customer.Id);
             customerToEdit.Name = customer.Name;
             customerToEdit.Birthday = customer.Birthday;
@@ -86,9 +87,10 @@ public class CustomersController : Controller
 
     public IActionResult Details(int id)
     {
+        //todo ASYNC/AWAIT
         var customer = _context.Customers
             .Include(c => c.MembershipType)
-            .SingleOrDefault(c => c.Id == id);
+            .FirstOrDefault(c => c.Id == id);
         
         return View(customer);
     }
