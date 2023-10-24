@@ -14,5 +14,5 @@ public class CustomerDto
     
     public byte MembershipTypeId { get; set; }
     
-    public MembershipTypeDto MembershipType { get; set; }
+    public MembershipTypeDto? MembershipType { get; set; }
 }

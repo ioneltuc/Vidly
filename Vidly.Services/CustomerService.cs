@@ -32,8 +32,8 @@ public class CustomerService : ICustomerService
 
     public async Task<IEnumerable<CustomerDto>> GetAllCustomers()
     {
-        var movies = await _unitOfWork.Customers.GetAll();
-        return movies.ToList().Select(_mapper.Map<Customer, CustomerDto>);
+        var customers = await _unitOfWork.Customers.GetAll();
+        return customers.ToList().Select(_mapper.Map<Customer, CustomerDto>);
     }
 
     public async Task<bool> CreateCustomer(CustomerDto customerDto)

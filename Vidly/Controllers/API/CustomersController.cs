@@ -26,10 +26,10 @@ namespace Vidly.Controllers.API
             return Ok(customers);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{customerId}")]
         public async Task<IActionResult> GetCustomerById(int customerId)
         {
-            var customer = _customerService.GetCustomerById(customerId);
+            var customer = await _customerService.GetCustomerById(customerId);
 
             if (customer == null)
                 return BadRequest();
@@ -65,7 +65,7 @@ namespace Vidly.Controllers.API
             return BadRequest();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{customerId}")]
         public async Task<IActionResult> DeleteCustomer(int customerId)
         {
             var isCustomerDeleted = await _customerService.DeleteCustomer(customerId);

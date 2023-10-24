@@ -1,10 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Vidly.Infrastructure;
 using Vidly.Services;
 using Vidly.Services.Interfaces;
+using Vidly.Services.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,9 @@ builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
 builder.Services.AddDIServices(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(MovieProfile));
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 

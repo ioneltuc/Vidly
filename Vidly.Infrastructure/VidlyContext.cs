@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Vidly.Core.Models;
 
 namespace Vidly.Infrastructure;

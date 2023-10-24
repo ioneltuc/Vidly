@@ -9,6 +9,8 @@ public class MovieProfile : Profile
     public MovieProfile()
     {
         CreateMap<Movie, MovieDto>();
-        CreateMap<MovieDto, Movie>();
+        CreateMap<MovieDto, Movie>()
+            .ForMember(m => m.Id,
+                options => options.Ignore());
     }
 }

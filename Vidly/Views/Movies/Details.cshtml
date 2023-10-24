@@ -1,12 +1,11 @@
-@* @model Vidly.Services.Dtos.MovieDto *@
-@* *@
-@* @{ *@
-@*     ViewBag.Title = "title"; *@
-@*     Layout = "_Layout"; *@
-@* } *@
-@* *@
-@* <h2>@Model.Name</h2> *@
-@* <h4>Genre: @Model.Genre</h4> *@
-@* <h4>Release date: @Model.ReleasedDate.ToShortDateString()</h4> *@
-@* <h4>Date added: @Model.DateAdded.ToShortDateString()</h4> *@
-@* <h4>Number in stock: @Model.NumberInStock</h4> *@
+@model Vidly.Services.Dtos.MovieDto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Name</h2>
+<p>Genre: @Model.Genre</p>
+<p>Date released: @Model.ReleasedDate.ToShortDateString()</p>
+<p>Number in stock: @Model.NumberInStock</p>
