@@ -9,9 +9,6 @@ public class CustomerProfile : Profile
     public CustomerProfile()
     {
         CreateMap<Customer, CustomerDto>();
-        CreateMap<CustomerDto, Customer>()
-            .ForMember(
-                c => c.Id,
-                options => options.Ignore());
+        CreateMap<CustomerDto, Customer>();
     }
 }

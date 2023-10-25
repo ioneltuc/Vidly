@@ -8,10 +8,11 @@ namespace Vidly.Controllers;
 public class CustomersController : Controller
 {
     private readonly ICustomerService _customerService;
-
-    public CustomersController(ICustomerService customerService)
+    private readonly IMembershipTypeService _membershipTypeService;
+    public CustomersController(ICustomerService customerService, IMembershipTypeService membershipTypeService)
     {
         _customerService = customerService;
+        _membershipTypeService = membershipTypeService;
     }
 
     [HttpPost]
@@ -23,7 +24,7 @@ public class CustomersController : Controller
             var viewModel = new CustomerFormViewModel()
             {
                 Customer = customer,
-                // MembershipTypes = _context.MembershipType.ToList()
+                MembershipTypes = await _membershipTypeService.GetAllMembershipTypes()
             };
         
             return View("CustomerForm", viewModel);
@@ -32,17 +33,17 @@ public class CustomersController : Controller
         if (customer.Id == 0)
             await _customerService.CreateCustomer(customer);
         else
-            await _customerService.UpdateCustomer(customer);
+            await _customerService.UpdateCustomer(customer.Id, customer);
         
         return RedirectToAction("Index", "Customers");
     }
 
-    public IActionResult New()
+    public async Task<ActionResult> New()
     {
         var viewModel = new CustomerFormViewModel()
         {
             Customer = new CustomerDto(),
-            // MembershipTypes = _context.MembershipType.ToList()
+            MembershipTypes = await _membershipTypeService.GetAllMembershipTypes()
         };
 
         return View("CustomerForm", viewModel);
@@ -57,7 +58,7 @@ public class CustomersController : Controller
 
         var viewModel = new CustomerFormViewModel()
         {
-            // MembershipTypes = _context.MembershipType.ToList(),
+            MembershipTypes = await _membershipTypeService.GetAllMembershipTypes(),
             Customer = customer
         };
 
@@ -71,7 +72,6 @@ public class CustomersController : Controller
 
     public async Task<IActionResult> Details(int id)
     {
-        //todo ASYNC/AWAIT
         var customer = await _customerService.GetCustomerById(id);
         
         return View(customer);

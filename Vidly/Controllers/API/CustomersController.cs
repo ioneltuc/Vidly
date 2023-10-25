@@ -16,7 +16,7 @@ namespace Vidly.Controllers.API
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCustomers(string query = null)
+        public async Task<IActionResult> GetCustomers()
         {
             var customers = await _customerService.GetAllCustomers();
 
@@ -51,13 +51,13 @@ namespace Vidly.Controllers.API
             return BadRequest();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateCustomer(CustomerDto customerDto)
+        [HttpPut("{customerId}")]
+        public async Task<IActionResult> UpdateCustomer(int customerId, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var isCustomerUpdated = await _customerService.UpdateCustomer(customerDto);
+            var isCustomerUpdated = await _customerService.UpdateCustomer(customerId, customerDto);
 
             if (isCustomerUpdated)
                 return Ok(isCustomerUpdated);

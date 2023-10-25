@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -16,9 +15,10 @@ builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
 builder.Services.AddDIServices(builder.Configuration);
-builder.Services.AddAutoMapper(typeof(MovieProfile));
+builder.Services.AddAutoMapper(typeof(MovieProfile), typeof(CustomerProfile), typeof(MembershipTypeProfile));
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMembershipTypeService, MembershipTypeService>();
 
 var app = builder.Build();
 
@@ -38,6 +38,7 @@ app.UseStaticFiles();
 //todo try to add Identity library for authorization and authentication
 //todo remove node modules
 //todo 2. ideally use minify in production mode
+//todo ASYNC/AWAIT
 
 app.UseRouting();
 

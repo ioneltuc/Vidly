@@ -54,15 +54,16 @@ public class CustomerService : ICustomerService
         return false;
     }
 
-    public async Task<bool> UpdateCustomer(CustomerDto customerDto)
+    public async Task<bool> UpdateCustomer(int customerId, CustomerDto customerDto)
     {
         if (customerDto != null)
         {
-            var customer = await _unitOfWork.Customers.GetById(customerDto.Id);
+            var customer = await _unitOfWork.Customers.GetById(customerId);
 
             if (customer != null)
             {
-                _unitOfWork.Customers.Update(_mapper.Map<CustomerDto, Customer>(customerDto));
+                _mapper.Map(customerDto, customer);
+                _unitOfWork.Customers.Update(customer);
 
                 var result = _unitOfWork.Save();
 
