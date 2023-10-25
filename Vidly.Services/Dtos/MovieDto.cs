@@ -6,19 +6,15 @@ namespace Vidly.Services.Dtos;
 public class MovieDto
 {
     public int Id { get; set; }
-    
-    [Required]
-    [StringLength(255)]
     public string Name { get; set; }
     
-    [Required]
+    [Display(Name = "Movie name")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public MovieGenreDto Genre { get; set; }
     
-    [Required]
+    [Display(Name = "Date released")]
     public DateTime ReleasedDate { get; set; }
     
-    [Required]
-    [Range(1, 20)]
+    [Display(Name = "Stock number")]
     public int NumberInStock { get; set; }
 }

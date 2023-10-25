@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -5,6 +7,7 @@ using Vidly.Infrastructure;
 using Vidly.Services;
 using Vidly.Services.Interfaces;
 using Vidly.Services.Mapper;
+using Vidly.Services.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,8 @@ builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
 builder.Services.AddDIServices(builder.Configuration);
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
 builder.Services.AddAutoMapper(typeof(MovieProfile), typeof(CustomerProfile), typeof(MembershipTypeProfile));
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
