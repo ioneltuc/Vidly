@@ -10,12 +10,15 @@ public static class ServiceExtension
 {
     public static IServiceCollection AddDIServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<VidlyContext>(options => 
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<VidlyContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        });
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<IMembershipTypeRepository, MembershipTypeRepository>();
+        services.AddScoped<IRentalRepository, RentalRepository>();
 
         return services;
     }

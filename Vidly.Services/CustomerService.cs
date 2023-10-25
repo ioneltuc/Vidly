@@ -32,7 +32,7 @@ public class CustomerService : ICustomerService
 
     public async Task<IEnumerable<CustomerDto>> GetAllCustomers()
     {
-        var customers = await _unitOfWork.Customers.GetAll();
+        var customers = await _unitOfWork.Customers.GetAllIncludeRelatedDate();
         return customers.ToList().Select(_mapper.Map<Customer, CustomerDto>);
     }
 

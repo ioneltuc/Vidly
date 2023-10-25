@@ -7,6 +7,7 @@ public class UnitOfWork : IUnitOfWork
     public ICustomerRepository Customers { get; }
     public IMovieRepository Movies { get; }
     public IMembershipTypeRepository MembershipTypes { get; }
+    public IRentalRepository Rentals { get; }
     
     private readonly VidlyContext _context;
 
@@ -14,12 +15,14 @@ public class UnitOfWork : IUnitOfWork
         VidlyContext context, 
         ICustomerRepository customerRepository,
         IMovieRepository movieRepository,
-        IMembershipTypeRepository membershipTypeRepository)
+        IMembershipTypeRepository membershipTypeRepository,
+        IRentalRepository rentalRepository)
     {
         _context = context;
         Customers = customerRepository;
         Movies = movieRepository;
         MembershipTypes = membershipTypeRepository;
+        Rentals = rentalRepository;
     }
     
     public void Dispose()

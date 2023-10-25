@@ -20,10 +20,17 @@ builder.Services.AddRazorPages()
 builder.Services.AddDIServices(builder.Configuration);
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
-builder.Services.AddAutoMapper(typeof(MovieProfile), typeof(CustomerProfile), typeof(MembershipTypeProfile));
+
+builder.Services.AddAutoMapper(
+    typeof(MovieProfile), 
+    typeof(CustomerProfile), 
+    typeof(MembershipTypeProfile),
+    typeof(RentalProfile));
+
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMembershipTypeService, MembershipTypeService>();
+builder.Services.AddScoped<IRentalService, RentalService>();
 
 var app = builder.Build();
 

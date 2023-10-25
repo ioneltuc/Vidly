@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Vidly.Core.Interfaces;
 using Vidly.Core.Models;
 
@@ -7,5 +8,12 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
 {
     public CustomerRepository(VidlyContext context) : base(context)
     {
+    }
+
+    public async Task<IEnumerable<Customer>> GetAllIncludeRelatedDate()
+    {
+        return await _context.Customers
+            .Include(c => c.MembershipType)
+            .ToListAsync();
     }
 }
