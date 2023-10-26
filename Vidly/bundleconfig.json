@@ -1,0 +1,40 @@
+[
+  {
+    "outputFileName": "wwwroot/css/main.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "wwwroot/css/site.css",
+      "wwwroot/Vidly.styles.css",
+      "wwwroot/css/typeahead.css",
+      "wwwroot/css/jquery.dataTables.css",
+      "wwwroot/css/toastr.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/main.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js",
+      "wwwroot/lib/jquery/dist/jquery.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "wwwroot/js/jquery.dataTables.js",
+      "wwwroot/js/bootbox.js",
+      "wwwroot/js/toastr.js",
+      "wwwroot/js/bloodhound.js",
+      "wwwroot/js/typeahead.bundle.js",
+      "wwwroot/js/typeahead.jquery.js",
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
