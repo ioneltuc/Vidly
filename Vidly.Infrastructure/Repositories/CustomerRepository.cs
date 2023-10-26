@@ -10,7 +10,7 @@ public class CustomerRepository : GenericRepository<Customer>, ICustomerReposito
     {
     }
 
-    public async Task<IEnumerable<Customer>> GetAllIncludeRelatedDate()
+    public async Task<IEnumerable<Customer>> GetAllIncludeRelatedData()
     {
         return await _context.Customers
             .Include(c => c.MembershipType)

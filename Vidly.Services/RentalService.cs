@@ -32,7 +32,7 @@ public class RentalService : IRentalService
 
     public async Task<IEnumerable<RentalDto>> GetAllRentals()
     {
-        var rentals = await _unitOfWork.Rentals.GetAllIncludeRelatedDate();
+        var rentals = await _unitOfWork.Rentals.GetAllIncludeRelatedData();
 
         return rentals.ToList().Select(_mapper.Map<Rental, RentalDto>);
     }
@@ -42,17 +42,17 @@ public class RentalService : IRentalService
         if (newRentalDto != null)
         {
             var customer = await _unitOfWork.Customers.GetById(newRentalDto.CustomerId);
-            var customerDto = _mapper.Map<Customer, CustomerDto>(customer);
             
             foreach (var movieId in newRentalDto.MovieIds)
             {
-                var rentalDto = new RentalDto
-                {
-                    Customer = customerDto,
-                    Movie = _mapper.Map<Movie, MovieDto>(await _unitOfWork.Movies.GetById(movieId))
-                };
+                var rental = new Rental();
+                rental.Customer = customer;
+                var movie = await _unitOfWork.Movies.GetById(movieId);
                 
-                var rental = _mapper.Map<RentalDto, Rental>(rentalDto);
+                if (!IsMovieAvailable(movie))
+                    return false;
+                
+                rental.Movie = movie;
                 rental.DateRented = DateTime.Now;
                 await _unitOfWork.Rentals.Add(rental);
             }
@@ -68,6 +68,18 @@ public class RentalService : IRentalService
         return false;
     }
 
+    private bool IsMovieAvailable(Movie movie)
+    {
+        if (movie.NumberAvailable > 0)
+        {
+            movie.NumberAvailable--;
+            
+            return true;
+        }
+
+        return false;
+    }
+    
     public async Task<bool> UpdateRental(int rentalId, RentalDto rentalDto)
     {
         if (rentalDto != null)

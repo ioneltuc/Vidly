@@ -10,7 +10,7 @@ public class RentalRepository : GenericRepository<Rental>, IRentalRepository
     {
     }
 
-    public async Task<IEnumerable<Rental>> GetAllIncludeRelatedDate()
+    public async Task<IEnumerable<Rental>> GetAllIncludeRelatedData()
     {
         return await _context.Rentals
             .Include(r => r.Customer)

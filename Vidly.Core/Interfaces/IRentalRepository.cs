@@ -4,5 +4,5 @@ namespace Vidly.Core.Interfaces;
 
 public interface IRentalRepository : IGenericRepository<Rental>
 {
-    Task<IEnumerable<Rental>> GetAllIncludeRelatedDate();
+    Task<IEnumerable<Rental>> GetAllIncludeRelatedData();
 }
