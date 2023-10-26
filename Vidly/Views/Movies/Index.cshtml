@@ -20,11 +20,18 @@
 
 <table id="movies" class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th>Movies</th>
-            <th>Genre</th>
-            <th>Delete</th>
-        </tr>
+    <tr>
+        <th>Movies</th>
+        <th>Genre</th>
+        @if (User.IsInRole("CanManageEverything"))
+        {
+            <th id="actionBtn">Delete</th>
+        }
+        else
+        {
+            <th id="actionBtn">Details</th>
+        }
+    </tr>
     </thead>
     <tbody>
 
@@ -53,7 +60,11 @@
                     {
                         data: "id",
                         render: function (data) {
-                            return "<button class='btn btn-link js-delete' data-movie-id=" + data + ">Delete</button>"
+                            var actionType = document.getElementById("actionBtn").textContent
+                            if (actionType === "Delete")
+                                return "<button class='btn btn-link js-delete' data-movie-id=" + data + ">Delete</button>"
+                            else if (actionType === "Details")
+                                return "<a href='/movies/details/" + data + "'>Info</a>"
                         },
                     }
                 ],
