@@ -65,6 +65,7 @@ public class MovieService : IMovieService
             if (movie != null)
             {
                 _mapper.Map(movieDto, movie);
+                movie.NumberAvailable = movie.NumberInStock;
                 _unitOfWork.Movies.Update(movie);
                 
                 var result = _unitOfWork.Save();
