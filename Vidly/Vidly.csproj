@@ -13,6 +13,9 @@
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.12" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.12" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.13" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
           <PrivateAssets>all</PrivateAssets>
@@ -31,6 +34,10 @@
     <ItemGroup>
       <ProjectReference Include="..\Vidly.Infrastructure\Vidly.Infrastructure.csproj" />
       <ProjectReference Include="..\Vidly.Services\Vidly.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     </ItemGroup>
 
 </Project>

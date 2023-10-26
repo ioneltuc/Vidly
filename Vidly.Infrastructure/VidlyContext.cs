@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vidly.Core.Models;
 
 namespace Vidly.Infrastructure;
 
-public class VidlyContext : DbContext
+public class VidlyContext : IdentityDbContext
 {
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Movie> Movies { get; set; }

@@ -1,32 +1,36 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Vidly.Infrastructure;
 using Vidly.Services;
 using Vidly.Services.Interfaces;
 using Vidly.Services.Mapper;
 using Vidly.Services.Validators;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"));
+builder.Services.AddDbContext<VidlyContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddDIServices(builder.Configuration);
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<VidlyContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
-
-builder.Services.AddDIServices(builder.Configuration);
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CustomerValidator>();
-
 builder.Services.AddAutoMapper(
-    typeof(MovieProfile), 
-    typeof(CustomerProfile), 
+    typeof(MovieProfile),
+    typeof(CustomerProfile),
     typeof(MembershipTypeProfile),
     typeof(RentalProfile));
-
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMembershipTypeService, MembershipTypeService>();

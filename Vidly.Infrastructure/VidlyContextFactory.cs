@@ -8,11 +8,11 @@ public class VidlyContextFactory : IDesignTimeDbContextFactory<VidlyContext>
 {
     public VidlyContext CreateDbContext(string[] args)
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .Build();
-
+        // IConfigurationRoot configuration = new ConfigurationBuilder()
+        //     .SetBasePath(Directory.GetCurrentDirectory())
+        //     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        //     .Build();
+        //
         // var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         var connection = "Server=localhost;Database=Vidly;Trusted_Connection=True;TrustServerCertificate=true;";
         
