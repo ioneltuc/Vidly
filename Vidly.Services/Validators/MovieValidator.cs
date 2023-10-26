@@ -9,7 +9,7 @@ public class MovieValidator : AbstractValidator<MovieDto>
     {
         RuleFor(m => m.Name).NotEmpty().MaximumLength(64);
         RuleFor(m => m.Genre).NotNull().IsInEnum();
-        RuleFor(m => m.ReleasedDate).NotEmpty();
+        RuleFor(m => m.ReleasedDate).NotNull();
         RuleFor(m => m.NumberInStock).GreaterThan(0).LessThanOrEqualTo(20);
     }
 }
