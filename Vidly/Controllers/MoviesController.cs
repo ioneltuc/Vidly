@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vidly.Services.Dtos;
 using Vidly.Services.Interfaces;
@@ -5,6 +6,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.Controllers;
 
+[Authorize(Policy = "CanManageEverything")]
 public class MoviesController : Controller
 {
     private readonly IMovieService _movieService;
@@ -61,11 +63,13 @@ public class MoviesController : Controller
         return View("MovieForm", viewModel);
     }
 
+    [AllowAnonymous]
     public IActionResult Index()
     {
         return View();
     }
 
+    [AllowAnonymous]
     public async Task<IActionResult> Details(int id)
     {
         var movie = await _movieService.GetMovieById(id);

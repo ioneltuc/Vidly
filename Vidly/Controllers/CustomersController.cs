@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vidly.Services.Dtos;
 using Vidly.Services.Interfaces;
@@ -5,6 +6,7 @@ using Vidly.ViewModels;
 
 namespace Vidly.Controllers;
 
+[Authorize(Policy = "CanManageEverything")]
 public class CustomersController : Controller
 {
     private readonly ICustomerService _customerService;

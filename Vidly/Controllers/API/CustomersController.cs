@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vidly.Services.Dtos;
 using Vidly.Services.Interfaces;
@@ -6,6 +7,7 @@ namespace Vidly.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "CanManageEverything")]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerService _customerService;

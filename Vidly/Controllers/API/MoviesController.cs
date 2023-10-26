@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vidly.Services.Dtos;
 using Vidly.Services.Interfaces;
@@ -6,6 +7,7 @@ namespace Vidly.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "CanManageEverything")]
     public class MoviesController : ControllerBase
     {
         private readonly IMovieService _movieService;
@@ -16,6 +18,7 @@ namespace Vidly.Controllers.API
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMovies()
         {
             var movies = await _movieService.GelAllMovies();
@@ -27,6 +30,7 @@ namespace Vidly.Controllers.API
         }
 
         [HttpGet("{movieId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMovieById(int movieId)
         {
             var movie = await _movieService.GetMovieById(movieId);

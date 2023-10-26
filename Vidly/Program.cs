@@ -22,6 +22,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<VidlyContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanManageEverything", policy => policy.RequireRole("CanManageEverything"));
+});
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 builder.Services.AddFluentValidationAutoValidation();

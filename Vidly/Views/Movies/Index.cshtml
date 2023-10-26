@@ -6,13 +6,17 @@
 }
 
 <h2>Movies</h2>
-<p>
-    @Html.ActionLink("New movie",
-        "New",
-        "Movies",
-        null,
-        new { @class = "btn btn-primary" })
-</p>
+
+@if (User.IsInRole("CanManageEverything"))
+{
+    <p>
+        @Html.ActionLink("New movie",
+            "New",
+            "Movies",
+            null,
+            new { @class = "btn btn-primary" })
+    </p>
+}
 
 <table id="movies" class="table table-bordered table-hover">
     <thead>
